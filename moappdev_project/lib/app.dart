@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+import 'signin.dart';
 import 'login.dart';
 
 class HanplApp extends StatelessWidget {
@@ -12,7 +14,12 @@ class HanplApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      initialRoute: '/login',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/login': (context) => const LoginPage(),
+        '/signin': (context) => const SigninPage(),
+      },
     );
   }
 }

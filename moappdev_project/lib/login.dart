@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 150,
+                    width: 100,
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   SizedBox(
-                    width: 150,
+                    width: 100,
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
@@ -80,15 +80,10 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 110,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'logo.png',
-                    width: 300,
-                    height: 300,
-                  ),
-                ],
+              Image.asset(
+                'assets/logo.png',
+                width: 300,
+                height: 300,
               ),
             ],
           ),

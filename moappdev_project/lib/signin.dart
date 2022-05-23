@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moappdve_project/login.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
@@ -65,7 +66,23 @@ class _SigninPageState extends State<SigninPage> {
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/login');
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancel'),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.grey,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20))
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 150,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
                       },
                       child: const Text('Sign-In'),
                       style: ElevatedButton.styleFrom(

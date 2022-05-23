@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moappdve_project/signin.dart';
+
+import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -47,14 +50,14 @@ class _LoginPageState extends State<LoginPage> {
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/signin');
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const SigninPage()));
                       },
                       child: const Text('Sign-In'),
                       style: ElevatedButton.styleFrom(
                           primary: Colors.blueAccent,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20))
-                      ),
+                              borderRadius: BorderRadius.circular(20))),
                     ),
                   ),
                   SizedBox(
@@ -62,20 +65,21 @@ class _LoginPageState extends State<LoginPage> {
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/');
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const MainPage()));
                       },
                       child: const Text('Login'),
                       style: ElevatedButton.styleFrom(
                           primary: Colors.cyan,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20))
-                      ),
+                              borderRadius: BorderRadius.circular(20))),
                     ),
                   ),
                 ],
               ),
-
-              const SizedBox(height: 110,),
+              const SizedBox(
+                height: 110,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

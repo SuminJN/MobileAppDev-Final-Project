@@ -96,8 +96,8 @@ class _SigninPageState extends State<SigninPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/logo.png',
-                    width: 300,
+                    'assets/images/logo.png',
+                    width: 250,
                     height: 300,
                   ),
                 ],

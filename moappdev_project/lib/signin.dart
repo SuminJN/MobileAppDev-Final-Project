@@ -62,7 +62,7 @@ class _SigninPageState extends State<SigninPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 150,
+                    width: 100,
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
@@ -72,12 +72,11 @@ class _SigninPageState extends State<SigninPage> {
                       style: ElevatedButton.styleFrom(
                           primary: Colors.grey,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20))
-                      ),
+                              borderRadius: BorderRadius.circular(20))),
                     ),
                   ),
                   SizedBox(
-                    width: 150,
+                    width: 100,
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
@@ -88,8 +87,7 @@ class _SigninPageState extends State<SigninPage> {
                       style: ElevatedButton.styleFrom(
                           primary: Colors.blueAccent,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20))
-                      ),
+                              borderRadius: BorderRadius.circular(20))),
                     ),
                   ),
                 ],
@@ -98,7 +96,7 @@ class _SigninPageState extends State<SigninPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'logo.png',
+                    'assets/logo.png',
                     width: 300,
                     height: 300,
                   ),

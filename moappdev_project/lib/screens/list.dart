@@ -37,7 +37,7 @@ List<Color> subjectColor = [
   Colors.redAccent,
   Colors.lightBlueAccent,
   Colors.purpleAccent,
-  Colors.greenAccent,
+  Colors.green,
 ];
 
 List<String> subjectName = [

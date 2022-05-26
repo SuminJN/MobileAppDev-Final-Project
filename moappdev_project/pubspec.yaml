@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  stop_watch_timer: ^1.4.0
+  user_profile_avatar: ^0.1.0
 
 dev_dependencies:
   flutter_test:

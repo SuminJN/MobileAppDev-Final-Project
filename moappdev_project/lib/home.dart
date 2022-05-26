@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moappdve_project/screens/calendar/calendar.dart';
 import 'package:moappdve_project/screens/homehome.dart';
 import 'package:moappdve_project/screens/list.dart';
 import 'package:moappdve_project/screens/setting.dart';
@@ -16,7 +17,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _titles = [const Text('Home'), const Text('Stopwatch'), const Text('List'), const Text('Setting')];
-  final List<Widget> _pages = [const HomeHomePage(), const StopwatchPage(), const ListPage(), const SettingPage()];
+  final List<Widget> _pages = [TableEventsExample(), const StopwatchPage(), const ListPage(), const SettingPage()];
 
   @override
   Widget build(BuildContext context) {

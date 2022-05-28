@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home.dart';
-import 'signin.dart';
+import 'signup.dart';
 import 'login.dart';
 
 class HanplApp extends StatelessWidget {

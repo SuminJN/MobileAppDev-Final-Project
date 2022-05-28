@@ -1,26 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:moappdve_project/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:moappdve_project/login.dart';
 import 'authentication.dart';
 
-import 'home.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final _idController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   void dispose() {
-    _idController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -28,7 +30,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        key: _formKey,
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 70.0),
           children: [
@@ -38,15 +39,14 @@ class _LoginPageState extends State<LoginPage> {
                   height: 250,
                 ),
                 TextFormField(
-                  controller: _idController,
+                  controller: _emailController,
                   decoration: const InputDecoration(
                     filled: true,
-                    labelText: 'ID',
-                    icon: Icon(Icons.mail),
+                    labelText: 'Email',
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Enter your email address to continue';
+                      return 'Enter your email address';
                     }
                     return null;
                   },
@@ -57,11 +57,26 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: const InputDecoration(
                     filled: true,
                     labelText: 'Password',
-                    icon: Icon(Icons.enhanced_encryption),
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Enter your password';
+                    }
+                    return null;
+                  },
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20.0),
+                TextFormField(
+                  controller: _confirmPasswordController,
+                  decoration: const InputDecoration(
+                    filled: true,
+                    labelText: 'Confirm Password',
+                  ),
+                  validator: (value) {
+                    if ((value!.isEmpty) ||
+                        (_passwordController.value != _confirmPasswordController.value)) {
+                      return 'Password mismatch!';
                     }
                     return null;
                   },
@@ -76,12 +91,11 @@ class _LoginPageState extends State<LoginPage> {
                       height: 40,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const SignupPage()));
+                          Navigator.pop(context);
                         },
-                        child: const Text('Sign Up'),
+                        child: const Text('Cancel'),
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent,
+                            primary: Colors.grey,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20))),
                       ),
@@ -90,23 +104,25 @@ class _LoginPageState extends State<LoginPage> {
                       width: 100,
                       height: 40,
                       child: ElevatedButton(
-                        onPressed: () => _login(),
-                        child: const Text('Login'),
+                        onPressed: () => signUp(_emailController.text, _passwordController.text),
+                        child: const Text('Sign-Up'),
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.cyan,
+                            primary: Colors.blueAccent,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20))),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 110,
-                ),
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: 300,
-                  height: 300,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/logo.png',
+                      width: 250,
+                      height: 300,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -115,30 +131,19 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  Future<void> signUp(String email, String password) async {
+    try {
+      UserCredential userCredential = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      User? user = userCredential.user;
 
-  _login() async {
-    if (_formKey.currentState!.validate()) {
-      FocusScope.of(context).requestFocus(FocusNode());
-
-      // Firebase 사용자 인증, 사용자 등록
-      try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _idController.text,
-          password: _passwordController.text,
-        );
-
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const MainPage()));
-      } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
         String message = '';
 
-        if (e.code == 'user-not-found') {
-          message = '사용자가 존재하지 않습니다.';
-        } else if (e.code == 'wrong-password') {
-          message = '비밀번호를 확인하세요';
-        } else if (e.code == 'invalid-email') {
-          message = '이메일을 확인하세요.';
-        }
+      if (e.code == 'email-already-in-use') {
+        message = '이미 사용중인 이메일 입니다.';
+      }
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -146,8 +151,6 @@ class _LoginPageState extends State<LoginPage> {
             backgroundColor: Colors.blueAccent,
           ),
         );
-      }
-
     }
   }
 }

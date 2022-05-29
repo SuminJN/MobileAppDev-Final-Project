@@ -95,7 +95,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             calendarFormat: _calendarFormat,
             rangeSelectionMode: _rangeSelectionMode,
             eventLoader: _getEventsForDay,
-            startingDayOfWeek: StartingDayOfWeek.monday,
+            startingDayOfWeek: StartingDayOfWeek.sunday,
             calendarStyle: const CalendarStyle(
               outsideDaysVisible: false,
             ),
@@ -143,4 +143,5 @@ class _TableEventsExampleState extends State<TableEventsExample> {
       ),
     );
   }
+
 }

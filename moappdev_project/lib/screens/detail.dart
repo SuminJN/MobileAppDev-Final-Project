@@ -47,25 +47,23 @@ class _DetailPageState extends State<DetailPage> {
         ],
         backgroundColor: appColor,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedButton(
-                    onPressed: () => flutterDialog(),
-                    child: const Text('Add Plan'),
-                  ),
-                ],
-              ),
-              const Divider(
-                thickness: 3,
-              ),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                OutlinedButton(
+                  onPressed: () => flutterDialog(),
+                  child: const Text('Add Plan'),
+                ),
+              ],
+            ),
+            const Divider(
+              thickness: 3,
+            ),
+          ],
         ),
       ),
     );
@@ -101,15 +99,14 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 ElevatedButton(
-                  child: Text('Date'),
+                  child: const Text('Date'),
                   onPressed: () {
                     _selectDate(context);
                   },
                 ),
-                Text('결과: $currentDate'),
               ],
             ),
             actions: <Widget>[
@@ -122,19 +119,32 @@ class _DetailPageState extends State<DetailPage> {
                       _dateController.clear();
                       Navigator.pop(context);
                     },
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       plan.add(<String, dynamic>{
                         'title': _titleController.text,
-                        'date': DateTime.now(),
+                        'date': currentDate,
+                        'subjectId': widget.document.id,
                       });
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            _titleController.text + ' is added',
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                          backgroundColor: Colors.blueAccent,
+                        ),
+                      );
+
                       _titleController.clear();
                       _dateController.clear();
+                      currentDate = DateTime.now();
                       Navigator.pop(context);
                     },
-                    child: Text('Add'),
+                    child: const Text('Add'),
                   ),
                 ],
               ),
@@ -147,8 +157,8 @@ class _DetailPageState extends State<DetailPage> {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: currentDate,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2050));
+        firstDate: DateTime(2020),
+        lastDate: DateTime(2030));
     if (pickedDate != null && pickedDate != currentDate) {
       setState(() {
         currentDate = pickedDate;

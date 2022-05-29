@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../utils.dart';
@@ -21,11 +22,13 @@ class _TableEventsExampleState extends State<TableEventsExample> {
 
   @override
   void initState() {
+    getPlans();
     super.initState();
 
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
+
 
   @override
   void dispose() {
@@ -34,8 +37,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
   }
 
   List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
-    return kEvents[day] ?? [];
+    return events[day] ?? [];
   }
 
   List<Event> _getEventsForRange(DateTime start, DateTime end) {
@@ -80,6 +82,9 @@ class _TableEventsExampleState extends State<TableEventsExample> {
     }
   }
 
+  Stream planStream =
+  FirebaseFirestore.instance.collection('plan').snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +100,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             calendarFormat: _calendarFormat,
             rangeSelectionMode: _rangeSelectionMode,
             eventLoader: _getEventsForDay,
+            // eventLoader: (day) => _getEventsForDay(day),
             startingDayOfWeek: StartingDayOfWeek.sunday,
             calendarStyle: const CalendarStyle(
               outsideDaysVisible: false,

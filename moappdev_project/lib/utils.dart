@@ -1,6 +1,7 @@
 import 'dart:collection';
-
+import 'package:flutter/cupertino.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Example event class.
 class Event {
@@ -11,6 +12,30 @@ class Event {
   @override
   String toString() => title;
 }
+
+// List<Map<DateTime, List<Event>>> plans = [];
+Map<DateTime, List<Event>> plans = {};
+
+Future<void> getPlans() async {
+  FirebaseFirestore.instance.collection('plan').snapshots().listen((snapshot) {
+    // plans = {};
+    for (final document in snapshot.docs) {
+      plans[document.data()['date'].toDate()] = [Event(document.data()['title'])];
+    }
+  });
+  print(plans);
+}
+
+final events = LinkedHashMap<DateTime, List<Event>>(
+  equals: isSameDay,
+  hashCode: getHashCode,
+)..addAll(plans);
+
+Map<DateTime, List<Event>> eventSource = {
+  DateTime(2022, 5, 3): [Event('testTitle')],
+  DateTime(2022, 5, 17): [Event('testTitle')],
+  DateTime(2022, 5, 29): [Event('testTitle')],
+};
 
 final kEvents = LinkedHashMap<DateTime, List<Event>>(
   equals: isSameDay,

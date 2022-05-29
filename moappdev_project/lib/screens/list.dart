@@ -33,8 +33,7 @@ class _ListPageState extends State<ListPage> {
                       .map<Widget>((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-                  return
-                user!.uid.toString() == data['userId']
+                  return user!.uid.toString() == data['userId']
                     ? Card(
                     child: InkWell(
                       onTap: () {

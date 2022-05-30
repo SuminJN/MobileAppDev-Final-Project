@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moappdve_project/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'authentication.dart';
+import 'package:moappdve_project/utils.dart';
 
 import 'home.dart';
 
@@ -16,6 +16,12 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _idController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    getPlans();
+    super.initState();
+  }
 
   @override
   void dispose() {

@@ -1,32 +1,56 @@
 import 'dart:collection';
-
+import 'package:flutter/cupertino.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Example event class.
 class Event {
   final String title;
 
-  const Event(this.title);
+  Event(this.title);
 
   @override
   String toString() => title;
 }
+
+// List<Map<DateTime, List<Event>>> plans = [];
+Map<DateTime, List<Event>> plans = {};
+
+Future<void> getPlans() async {
+  FirebaseFirestore.instance.collection('plan').snapshots().listen((snapshot) {
+    plans = {};
+    for (final document in snapshot.docs) {
+      // print(plans.containsKey(document.data()['date'].toDate()));
+      if(plans.containsKey(document.data()['date'].toDate())) {
+        plans[document.data()['date'].toDate()]!.add(Event(document.data()['title']));
+      }else{
+        plans[document.data()['date'].toDate()] = [Event(document.data()['title'])];
+      }
+    }
+  });
+}
+
+final events = LinkedHashMap<DateTime, List<Event>>(
+  equals: isSameDay,
+  hashCode: getHashCode,
+)..addAll(plans);
+
+Map<DateTime, List<Event>> eventSource = {
+  DateTime(2022, 5, 3): [Event('test1')],
+  DateTime(2022, 5, 17): [Event('test2'), Event('test3')],
+  DateTime(2022, 5, 29): [Event('test4')],
+};
 
 final kEvents = LinkedHashMap<DateTime, List<Event>>(
   equals: isSameDay,
   hashCode: getHashCode,
 )..addAll(_kEventSource);
 
-final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
-    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5),
-    value: (item) => List.generate(
-        item % 4 + 1, (index) => Event('Event $item | ${index + 1}')))
-  ..addAll({
-    kToday: [
-      Event('Today\'s Event 1'),
-      Event('Today\'s Event 2'),
-    ],
-  });
+final _kEventSource = {
+  for (var item in List.generate(50, (index) => index))
+    DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
+        item % 4 + 1, (index) => Event('Event $item | ${index + 1}'))
+}..addAll({});
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;

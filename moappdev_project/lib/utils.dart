@@ -18,12 +18,16 @@ Map<DateTime, List<Event>> plans = {};
 
 Future<void> getPlans() async {
   FirebaseFirestore.instance.collection('plan').snapshots().listen((snapshot) {
-    // plans = {};
+    plans = {};
     for (final document in snapshot.docs) {
-      plans[document.data()['date'].toDate()] = [Event(document.data()['title'])];
+      // print(plans.containsKey(document.data()['date'].toDate()));
+      if(plans.containsKey(document.data()['date'].toDate())) {
+        plans[document.data()['date'].toDate()]!.add(Event(document.data()['title']));
+      }else{
+        plans[document.data()['date'].toDate()] = [Event(document.data()['title'])];
+      }
     }
   });
-  print(plans);
 }
 
 final events = LinkedHashMap<DateTime, List<Event>>(
@@ -32,9 +36,9 @@ final events = LinkedHashMap<DateTime, List<Event>>(
 )..addAll(plans);
 
 Map<DateTime, List<Event>> eventSource = {
-  DateTime(2022, 5, 3): [Event('testTitle')],
-  DateTime(2022, 5, 17): [Event('testTitle')],
-  DateTime(2022, 5, 29): [Event('testTitle')],
+  DateTime(2022, 5, 3): [Event('test1')],
+  DateTime(2022, 5, 17): [Event('test2'), Event('test3')],
+  DateTime(2022, 5, 29): [Event('test4')],
 };
 
 final kEvents = LinkedHashMap<DateTime, List<Event>>(

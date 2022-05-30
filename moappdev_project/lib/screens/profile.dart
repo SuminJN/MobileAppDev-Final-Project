@@ -9,9 +9,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Color appColor = const Color.fromRGBO(134, 201, 245, 1);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text('Profile'),
+          backgroundColor: appColor,
+        ),
         body: ListView(
           children: <Widget>[
             ListTile(

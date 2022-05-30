@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _titles = [const Text('Home'), const Text('Stopwatch'), const Text('List'), const Text('Setting')];
-  final List<Widget> _pages = [TableEventsExample(), const StopwatchPage(), const ListPage(), const ProfilePage()];
+  final List<Widget> _pages = [TableEventsExample(), const StopwatchPage(), const ListPage(), const SettingPage()];
 
   @override
   Widget build(BuildContext context) {

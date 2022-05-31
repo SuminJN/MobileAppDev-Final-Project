@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moappdve_project/screens/setting.dart';
 import 'package:user_profile_avatar/user_profile_avatar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -41,28 +42,57 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const Divider(thickness: 2,),
             ListTile(
-              leading: Text('Name'),
-              title: Text('Minsu Kim'),
+              leading: Text('Name', style: TextStyle(fontWeight: FontWeight.bold),),
+              title: Container(
+                margin: EdgeInsets.only(left: 20.0, right: 40.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Minsu Kim',
+                  ),
+                ),
+              ),
             ),
             const Divider(thickness: 2,),
             ListTile(
-              leading: Text('Major'),
-              title: Text('Computer Science'),
+              leading: Text('Major', style: TextStyle(fontWeight: FontWeight.bold),),
+              title: Container(
+                margin: EdgeInsets.only(left: 20.0, right: 40.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Computer Science',
+                  ),
+                ),
+              ),
             ),
             const Divider(thickness: 2,),
             ListTile(
-              leading: Text('Semester'),
-              title: Text('6th'),
+              leading: Text('Semester', style: TextStyle(fontWeight: FontWeight.bold),),
+              title: Container(
+                margin: EdgeInsets.only(left: 20.0, right: 40.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: '6th',
+                  ),
+                ),
+              ),
             ),
             const Divider(thickness: 2,),
             ListTile(
-              leading: Text('Status'),
-              title: Text('It\'s hard to beat a person who never gives up'),
+              leading: Text('Status', style: TextStyle(fontWeight: FontWeight.bold),),
+              title: Container(
+                margin: EdgeInsets.only(left: 20.0, right: 40.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'It\'s to hard to beat a person who never give up',
+                  ),
+                ),
+              ),
             ),
             const Divider(thickness: 2,),
-            const SizedBox(
-              height: 0,
-            ),
             Image.asset(
               'assets/images/logo.png',
               width: 300,

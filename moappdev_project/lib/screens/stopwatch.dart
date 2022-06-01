@@ -9,6 +9,7 @@ class StopwatchPage extends StatefulWidget {
 }
 
 class _StopwatchPageState extends State<StopwatchPage> {
+  Color appColor = const Color.fromRGBO(134, 201, 245, 1);
   final _isHours = true;
 
   final StopWatchTimer _stopWatchTimer = StopWatchTimer(
@@ -50,6 +51,10 @@ class _StopwatchPageState extends State<StopwatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appColor,
+        title: const Text('Stopwatch'),
+      ),
       body: Scrollbar(
         child: SingleChildScrollView(
           child: Padding(

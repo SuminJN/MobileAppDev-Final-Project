@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moappdve_project/screens/detail.dart';
 
-class ListPage extends StatefulWidget {
-  const ListPage({Key? key}) : super(key: key);
+class SubjectPage extends StatefulWidget {
+  const SubjectPage({Key? key}) : super(key: key);
 
   @override
-  _ListPageState createState() => _ListPageState();
+  _SubjectPageState createState() => _SubjectPageState();
 }
 
-class _ListPageState extends State<ListPage> {
+class _SubjectPageState extends State<SubjectPage> {
   Color appColor = const Color.fromRGBO(134, 201, 245, 1);
   final User? user = FirebaseAuth.instance.currentUser;
 

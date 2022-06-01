@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moappdve_project/screens/calendar/calendar.dart';
+import 'package:moappdve_project/screens/function.dart';
 import 'package:moappdve_project/screens/homehome.dart';
-import 'package:moappdve_project/screens/list.dart';
+import 'package:moappdve_project/screens/subject.dart';
 import 'package:moappdve_project/screens/profile.dart';
 import 'package:moappdve_project/screens/setting.dart';
 import 'package:moappdve_project/screens/stopwatch.dart';
@@ -17,8 +18,8 @@ class _MainPageState extends State<MainPage> {
   Color appColor = const Color.fromRGBO(134, 201, 245, 1);
   int _selectedIndex = 0;
 
-  final List<Widget> _titles = [const Text('Home'), const Text('Stopwatch'), const Text('List'), const Text('Setting')];
-  final List<Widget> _pages = [TableEventsExample(), const StopwatchPage(), const ListPage(), const SettingPage()];
+  final List<Widget> _titles = [const Text('Home'), const Text('Function'), const Text('Subject'), const Text('Setting')];
+  final List<Widget> _pages = [TableEventsExample(), const FunctionPage(), const SubjectPage(), const SettingPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +49,12 @@ class _MainPageState extends State<MainPage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.timer),
-            label: 'Stopwatch',
+            icon: Icon(Icons.apps),
+            label: 'Function',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'List',
+            icon: Icon(Icons.subject),
+            label: 'Subject',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

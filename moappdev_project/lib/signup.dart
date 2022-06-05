@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moappdve_project/login.dart';
 import 'authentication.dart';
-
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -75,7 +75,8 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   validator: (value) {
                     if ((value!.isEmpty) ||
-                        (_passwordController.value != _confirmPasswordController.value)) {
+                        (_passwordController.value !=
+                            _confirmPasswordController.value)) {
                       return 'Password mismatch!';
                     }
                     return null;
@@ -104,7 +105,8 @@ class _SignupPageState extends State<SignupPage> {
                       width: 100,
                       height: 40,
                       child: ElevatedButton(
-                        onPressed: () => signUp(_emailController.text, _passwordController.text),
+                        onPressed: () => signUp(
+                            _emailController.text, _passwordController.text),
                         child: const Text('Sign-Up'),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.blueAccent,
@@ -131,6 +133,7 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
+
   Future<void> signUp(String email, String password) async {
     try {
       UserCredential userCredential = await _firebaseAuth
@@ -138,19 +141,30 @@ class _SignupPageState extends State<SignupPage> {
       User? user = userCredential.user;
 
       Navigator.pop(context);
+      addUserInfo(user!.uid);
     } on FirebaseAuthException catch (e) {
-        String message = '';
+      String message = '';
 
       if (e.code == 'email-already-in-use') {
         message = '이미 사용중인 이메일 입니다.';
       }
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(message),
-            backgroundColor: Colors.blueAccent,
-          ),
-        );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.blueAccent,
+        ),
+      );
     }
+  }
+
+  Future<void> addUserInfo(String uid) async{
+    CollectionReference user = FirebaseFirestore.instance.collection('user');
+    user.doc(uid).set({
+     'name': 'userName',
+     'major': 'Major',
+     'semester': 1,
+     'status': 'Please enter a status message',
+    });
   }
 }

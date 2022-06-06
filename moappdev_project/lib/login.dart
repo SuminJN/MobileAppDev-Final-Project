@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moappdve_project/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:moappdve_project/utils.dart';
+import 'package:moappdve_project/screens/calendar/utils.dart';
 
 import 'home.dart';
 

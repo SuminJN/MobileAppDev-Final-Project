@@ -177,6 +177,7 @@ class _ProfilePageState extends State<ProfilePage> {
       'major': _majorController.text == '' ? _major : _majorController.text,
       'semester': _semesterController.text == '' ? _semester : int.parse(_semesterController.text),
       'status': _statusController.text == '' ? _status : _statusController.text,
+      'photoUrl': _photoUrl,
     });
   }
 

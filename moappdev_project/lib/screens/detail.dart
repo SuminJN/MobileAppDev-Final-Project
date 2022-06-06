@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'chart/line_chart_page.dart';
+import 'chart/line_chart_sample1.dart';
+import 'chart/line_chart_sample2.dart';
+
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key, required this.document}) : super(key: key);
   final DocumentSnapshot<Object?> document;
@@ -23,7 +27,6 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(
         title: Text(
           data['title'],
-          style: const TextStyle(color: Colors.black),
         ),
         actions: [
           IconButton(
@@ -54,15 +57,22 @@ class _DetailPageState extends State<DetailPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                OutlinedButton(
+                ElevatedButton(
                   onPressed: () => flutterDialog(),
                   child: const Text('Add Plan'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.indigoAccent,
+                  ),
                 ),
               ],
             ),
             const Divider(
               thickness: 3,
             ),
+            const SizedBox(height: 20,),
+            LineChartSample2(),
+            const SizedBox(height: 20,),
+            LineChartSample1(),
           ],
         ),
       ),
@@ -126,7 +136,7 @@ class _DetailPageState extends State<DetailPage> {
                       plan.add(<String, dynamic>{
                         'title': _titleController.text,
                         'date': currentDate,
-                        'subjectId': widget.document.id,
+                        'userId': user?.uid.toString(),
                       });
 
                       ScaffoldMessenger.of(context).showSnackBar(

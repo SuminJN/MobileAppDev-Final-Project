@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moappdve_project/screens/calendar/calendar.dart';
 import 'package:moappdve_project/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:moappdve_project/screens/calendar/utils.dart';
 
 import 'home.dart';
 
@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    getPlans();
     super.initState();
   }
 
@@ -133,6 +132,7 @@ class _LoginPageState extends State<LoginPage> {
           password: _passwordController.text,
         );
 
+        getPlans();
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => const MainPage()));
       } on FirebaseAuthException catch (e) {

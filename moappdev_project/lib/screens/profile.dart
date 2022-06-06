@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String? _major;
   int? _semester;
   String? _status;
+  String? _photoUrl;
 
   @override
   void initState() {
@@ -41,11 +42,13 @@ class _ProfilePageState extends State<ProfilePage> {
       body: FutureBuilder(
           future: readData(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return ListView(
+            return snapshot.connectionState != ConnectionState.done
+                ? const Center(child: CircularProgressIndicator())
+            : ListView(
               children: <Widget>[
                 ListTile(
                   title: UserProfileAvatar(
-                    avatarUrl: 'https://picsum.photos/id/237/5000/5000',
+                    avatarUrl: _photoUrl!,
                     onAvatarTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -187,6 +190,7 @@ class _ProfilePageState extends State<ProfilePage> {
           _major = value.data()!['major'],
           _semester = value.data()!['semester'],
           _status = value.data()!['status'],
+          _photoUrl = value.data()!['photoUrl'],
         });
   }
 }

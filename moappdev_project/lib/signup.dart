@@ -165,6 +165,7 @@ class _SignupPageState extends State<SignupPage> {
      'major': 'Major',
      'semester': 1,
      'status': 'Please enter a status message',
+      'photoUrl': 'https://picsum.photos/id/237/5000/5000',
     });
   }
 }

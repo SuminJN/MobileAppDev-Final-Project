@@ -13,22 +13,23 @@ class Event {
   String toString() => title;
 }
 
-// List<Map<DateTime, List<Event>>> plans = [];
 Map<DateTime, List<Event>> plans = {};
 
 Future<void> getPlans() async {
   FirebaseFirestore.instance.collection('plan').snapshots().listen((snapshot) {
     plans = {};
     for (final document in snapshot.docs) {
-      if(plans.containsKey(document.data()['date'].toDate())) {
-        plans[document.data()['date'].toDate()]!.add(Event(document.data()['title']));
-      }else{
-        plans[document.data()['date'].toDate()] =
-        [Event(document.data()['title'])];
+      if (plans.containsKey(document.data()['date'].toDate())) {
+        plans[document.data()['date'].toDate()]!
+            .add(Event(document.data()['title']));
+      } else {
+        plans[document.data()['date'].toDate()] = [
+          Event(document.data()['title'])
+        ];
       }
     }
   });
-  print(plans);
+  // print(plans);
 }
 
 final events = LinkedHashMap<DateTime, List<Event>>(
@@ -36,22 +37,22 @@ final events = LinkedHashMap<DateTime, List<Event>>(
   hashCode: getHashCode,
 )..addAll(plans);
 
-Map<DateTime, List<Event>> eventSource = {
-  DateTime(2022, 5, 3): [Event('testTitle')],
-  DateTime(2022, 5, 17): [Event('testTitle')],
-  DateTime(2022, 5, 29): [Event('testTitle')],
-};
+// Map<DateTime, List<Event>> eventSource = {
+//   DateTime(2022, 5, 3): [Event('testTitle')],
+//   DateTime(2022, 5, 17): [Event('testTitle')],
+//   DateTime(2022, 5, 29): [Event('testTitle')],
+// };
 
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
+// final kEvents = LinkedHashMap<DateTime, List<Event>>(
+//   equals: isSameDay,
+//   hashCode: getHashCode,
+// )..addAll(_kEventSource);
 
-final _kEventSource = {
-  for (var item in List.generate(50, (index) => index))
-    DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
-        item % 4 + 1, (index) => Event('Event $item | ${index + 1}'))
-}..addAll({});
+// final _kEventSource = {
+//   for (var item in List.generate(50, (index) => index))
+//     DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
+//         item % 4 + 1, (index) => Event('Event $item | ${index + 1}'))
+// }..addAll({});
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;

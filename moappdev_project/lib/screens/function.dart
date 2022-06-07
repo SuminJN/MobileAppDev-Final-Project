@@ -23,8 +23,13 @@ class _FunctionPageState extends State<FunctionPage> {
                     builder: (context) => const StopwatchPage()));
               },
               child: Container(
-
-                color: Colors.redAccent.shade200,
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent.shade200,
+                    border: Border.all(width: 2),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
                 padding: const EdgeInsets.all(30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -37,14 +42,20 @@ class _FunctionPageState extends State<FunctionPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 10,),
             InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const TranslatorPage()));
               },
               child: Container(
-                color: Colors.orangeAccent.shade200,
+                decoration: BoxDecoration(
+                  color: Colors.orangeAccent.shade200,
+                  border: Border.all(width: 2),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
                 padding: const EdgeInsets.all(30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

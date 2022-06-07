@@ -28,70 +28,75 @@ class _SubjectPageState extends State<SubjectPage> {
                 child: CircularProgressIndicator(),
               );
             } else {
-              return ListView(
-                  children: snapshot.data!.docs
-                      .map<Widget>((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
+              return Container(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView(
+                    children: snapshot.data!.docs
+                        .map<Widget>((DocumentSnapshot document) {
+                  Map<String, dynamic> data =
+                      document.data()! as Map<String, dynamic>;
                   return user!.uid.toString() == data['userId']
-                    ? Card(
-                    shape: ContinuousRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                      side: const BorderSide(),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                DetailPage(document: document,)));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          children: [
-                            //Color 설정
-                            // Container(
-                            //   width: 40,
-                            //   height: 40,
-                            //   decoration:
-                            //       BoxDecoration(color: _subject.color, shape: BoxShape.circle),
-                            // ),
-                            // const SizedBox(
-                            //   width: 15,
-                            // ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                      ? Card(
+                          shape: ContinuousRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            side: const BorderSide(),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => DetailPage(
+                                        document: document,
+                                      )));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Row(
                                 children: [
-                                  Text(
-                                    data['title'],
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                  //Color 설정
+                                  // Container(
+                                  //   width: 40,
+                                  //   height: 40,
+                                  //   decoration:
+                                  //       BoxDecoration(color: _subject.color, shape: BoxShape.circle),
+                                  // ),
+                                  // const SizedBox(
+                                  //   width: 15,
+                                  // ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          data['title'],
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(data['explanation']),
+                                      ],
+                                    ),
                                   ),
-                                  Text(data['explanation']),
+                                  Text("${data['credit']}학점"),
                                 ],
                               ),
                             ),
-                            Text("${data['credit']}학점"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                    : Container();
-
-              }).toList());
+                          ),
+                        )
+                      : Container();
+                }).toList()),
+              );
             }
           }),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.indigo.shade300,
         child: const Icon(Icons.add),
         onPressed: () => flutterDialog(),
       ),
     );
   }
 
-  CollectionReference subjects = FirebaseFirestore.instance.collection('subject');
+  CollectionReference subjects =
+      FirebaseFirestore.instance.collection('subject');
   final _titleController = TextEditingController();
   final _explanationController = TextEditingController();
   final _creditController = TextEditingController();

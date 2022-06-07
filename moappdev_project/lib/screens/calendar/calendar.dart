@@ -12,8 +12,9 @@ class Event {
   final String title;
   bool isAchieved;
   final String docId;
+  final String subject;
 
-  Event(this.title, this.isAchieved, this.docId);
+  Event(this.title, this.isAchieved, this.docId, this.subject);
 
   @override
   String toString() => title;
@@ -60,6 +61,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                         document.data()['title'],
                         document.data()['isAchieved'],
                         document.id,
+                        document.data()['subject'],
                       ));
                     } else {
                       _events[document.data()['date'].toDate()] = [
@@ -67,6 +69,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                           document.data()['title'],
                           document.data()['isAchieved'],
                           document.id,
+                          document.data()['subject'],
                         )
                       ];
                       // print(document.id);
@@ -109,7 +112,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                           margin: const EdgeInsets.all(4.0),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: appColor,
+                              color: Colors.indigo.shade300,
                               borderRadius: BorderRadius.circular(10.0)),
                           child: Text(
                             date.day.toString(),
@@ -119,7 +122,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                           margin: const EdgeInsets.all(4.0),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: Colors.indigoAccent.shade100,
+                              color: Colors.orange,
                               borderRadius: BorderRadius.circular(10.0)),
                           child: Text(
                             date.day.toString(),
@@ -152,7 +155,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                           });
                         },
                         title: Text(
-                          event.title,
+                          event.subject + ' - ' + event.title,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),

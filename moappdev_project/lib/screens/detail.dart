@@ -58,10 +58,10 @@ class _DetailPageState extends State<DetailPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
-                  onPressed: () => flutterDialog(),
+                  onPressed: () => flutterDialog(data['title']),
                   child: const Text('Add Plan'),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.indigoAccent,
+                    primary: Colors.indigo.shade300,
                   ),
                 ),
               ],
@@ -83,7 +83,7 @@ class _DetailPageState extends State<DetailPage> {
   final _titleController = TextEditingController();
   final _dateController = TextEditingController();
 
-  void flutterDialog() {
+  void flutterDialog(String subjectName) {
     showDialog(
         context: context,
         //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
@@ -138,6 +138,7 @@ class _DetailPageState extends State<DetailPage> {
                         'date': currentDate,
                         'userId': user?.uid.toString(),
                         'isAchieved': false,
+                        'subject': subjectName,
                       });
 
                       ScaffoldMessenger.of(context).showSnackBar(

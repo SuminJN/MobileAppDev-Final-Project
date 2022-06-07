@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   title: Container(
                     margin: const EdgeInsets.only(left: 20.0, right: 40.0),
-                    child: TextFormField(
+                    child: TextField(
                       controller: _nameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -94,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   title: Container(
                     margin: const EdgeInsets.only(left: 20.0, right: 40.0),
-                    child: TextFormField(
+                    child: TextField(
                       controller: _majorController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -113,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   title: Container(
                     margin: const EdgeInsets.only(left: 20.0, right: 40.0),
-                    child: TextFormField(
+                    child: TextField(
                       keyboardType: TextInputType.number,
                       controller: _semesterController,
                       decoration: InputDecoration(
@@ -133,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   title: Container(
                     margin: const EdgeInsets.only(left: 20.0, right: 40.0),
-                    child: TextFormField(
+                    child: TextField(
                       controller: _statusController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),

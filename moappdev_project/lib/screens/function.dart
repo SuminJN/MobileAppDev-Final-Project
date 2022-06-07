@@ -23,7 +23,8 @@ class _FunctionPageState extends State<FunctionPage> {
                     builder: (context) => const StopwatchPage()));
               },
               child: Container(
-                color: Colors.redAccent,
+
+                color: Colors.redAccent.shade200,
                 padding: const EdgeInsets.all(30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +44,7 @@ class _FunctionPageState extends State<FunctionPage> {
                     builder: (context) => const TranslatorPage()));
               },
               child: Container(
-                color: Colors.orangeAccent,
+                color: Colors.orangeAccent.shade200,
                 padding: const EdgeInsets.all(30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -137,6 +137,7 @@ class _DetailPageState extends State<DetailPage> {
                         'title': _titleController.text,
                         'date': currentDate,
                         'userId': user?.uid.toString(),
+                        'isAchieved': false,
                       });
 
                       ScaffoldMessenger.of(context).showSnackBar(

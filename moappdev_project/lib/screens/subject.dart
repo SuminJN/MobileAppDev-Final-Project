@@ -35,6 +35,10 @@ class _SubjectPageState extends State<SubjectPage> {
                     document.data()! as Map<String, dynamic>;
                   return user!.uid.toString() == data['userId']
                     ? Card(
+                    shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: const BorderSide(),
+                    ),
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(

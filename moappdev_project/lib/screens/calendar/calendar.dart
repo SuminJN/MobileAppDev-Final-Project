@@ -10,8 +10,10 @@ Stream planStream = FirebaseFirestore.instance.collection('plan').snapshots();
 
 class Event {
   final String title;
+  bool isAchieved;
+  final String docId;
 
-  Event(this.title);
+  Event(this.title, this.isAchieved, this.docId);
 
   @override
   String toString() => title;
@@ -25,6 +27,7 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageExampleState extends State<CalendarPage> {
+  Color appColor = const Color.fromRGBO(134, 201, 245, 1);
   late CalendarController _controller;
   late Map<DateTime, List<dynamic>> _events;
   late List<dynamic> _selectedEvents;
@@ -53,12 +56,20 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                 for (final document in snapshot.data!.docs) {
                   if (user?.uid.toString() == document.data()['userId']) {
                     if (_events.containsKey(document.data()['date'].toDate())) {
-                      _events[document.data()['date'].toDate()]!
-                          .add(Event(document.data()['title']));
+                      _events[document.data()['date'].toDate()]!.add(Event(
+                        document.data()['title'],
+                        document.data()['isAchieved'],
+                        document.id,
+                      ));
                     } else {
                       _events[document.data()['date'].toDate()] = [
-                        Event(document.data()['title'])
+                        Event(
+                          document.data()['title'],
+                          document.data()['isAchieved'],
+                          document.id,
+                        )
                       ];
+                      // print(document.id);
                     }
                   }
                 }
@@ -71,7 +82,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                     initialCalendarFormat: CalendarFormat.month,
                     calendarStyle: CalendarStyle(
                         canEventMarkersOverflow: true,
-                        todayColor: Colors.orange,
+                        todayColor: Colors.grey,
                         selectedColor: Theme.of(context).primaryColor,
                         todayStyle: const TextStyle(
                             fontWeight: FontWeight.bold,
@@ -80,7 +91,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                     headerStyle: HeaderStyle(
                       centerHeaderTitle: true,
                       formatButtonDecoration: BoxDecoration(
-                        color: Colors.orange,
+                        color: Colors.grey,
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       formatButtonTextStyle:
@@ -98,7 +109,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                           margin: const EdgeInsets.all(4.0),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: appColor,
                               borderRadius: BorderRadius.circular(10.0)),
                           child: Text(
                             date.day.toString(),
@@ -108,7 +119,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                           margin: const EdgeInsets.all(4.0),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: Colors.orange,
+                              color: Colors.indigoAccent.shade100,
                               borderRadius: BorderRadius.circular(10.0)),
                           child: Text(
                             date.day.toString(),
@@ -117,9 +128,7 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                     ),
                     calendarController: _controller,
                   ),
-
                   const SizedBox(height: 8.0),
-
                   ..._selectedEvents.map(
                     (event) => Container(
                       margin: const EdgeInsets.symmetric(
@@ -127,12 +136,25 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                         vertical: 4.0,
                       ),
                       decoration: BoxDecoration(
+                        color: event.isAchieved == false
+                            ? Colors.redAccent.shade100
+                            : Colors.lightBlue.shade300,
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: ListTile(
-                        onTap: () => print(event.title),
-                        title: Text(event.title),
+                        onTap: () {
+                          checkIsAchieved(event);
+                          setState(() {
+                            event.isAchieved == false
+                                ? event.isAchieved = true
+                                : event.isAchieved = false;
+                          });
+                        },
+                        title: Text(
+                          event.title,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
@@ -141,5 +163,14 @@ class _CalendarPageExampleState extends State<CalendarPage> {
             }
           }),
     );
+  }
+
+  Future<void> checkIsAchieved(Event event) async {
+    final userInfo =
+        FirebaseFirestore.instance.collection('plan').doc(event.docId);
+
+    userInfo.update({
+      'isAchieved': event.isAchieved == false ? true : false,
+    });
   }
 }

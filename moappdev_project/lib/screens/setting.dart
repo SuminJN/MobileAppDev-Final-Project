@@ -62,6 +62,7 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                   ),
                 ),
+                const SizedBox(width: 10.0,),
                 FutureBuilder(
                     future: readData(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

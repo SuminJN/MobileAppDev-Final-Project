@@ -61,7 +61,7 @@ class _DetailPageState extends State<DetailPage> {
                   onPressed: () => flutterDialog(data['title']),
                   child: const Text('Add Plan'),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.indigo.shade300,
+                    primary: Colors.deepPurple.shade300,
                   ),
                 ),
               ],

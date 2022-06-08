@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'chart/line_chart_page.dart';
-import 'chart/line_chart_sample1.dart';
-import 'chart/line_chart_sample2.dart';
+import 'chart/achievechart.dart';
+import 'chart/timechart.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key, required this.document}) : super(key: key);
@@ -69,10 +68,28 @@ class _DetailPageState extends State<DetailPage> {
             const Divider(
               thickness: 3,
             ),
-            const SizedBox(height: 20,),
-            LineChartSample2(),
-            const SizedBox(height: 20,),
-            LineChartSample1(),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Time Chart',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const TimeChart(),
+            const SizedBox(
+              height: 50,
+            ),
+            const Text(
+              'Achievement Chart',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const AchieveChart(),
           ],
         ),
       ),

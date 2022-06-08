@@ -20,17 +20,8 @@ class _SettingPageState extends State<SettingPage> {
       .doc(_firebaseAuth.currentUser!.uid)
       .snapshots();
 
-  late String _name;
-  late String _status;
-
   Future<void> signOut() async {
     return _firebaseAuth.signOut();
-  }
-
-  @override
-  void initState() {
-    readData();
-    super.initState();
   }
 
   @override
@@ -178,16 +169,5 @@ class _SettingPageState extends State<SettingPage> {
         ),
       ),
     );
-  }
-
-  Future<void> readData() async {
-    final userInfo = FirebaseFirestore.instance
-        .collection('user')
-        .doc(_firebaseAuth.currentUser!.uid);
-
-    await userInfo.get().then((value) => {
-          _name = value.data()!['name'],
-          _status = value.data()!['status'],
-        });
   }
 }

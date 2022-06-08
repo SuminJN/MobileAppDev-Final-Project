@@ -12,14 +12,16 @@ class SettingPage extends StatefulWidget {
   _SettingPageState createState() => _SettingPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  Stream userStream = FirebaseFirestore.instance.collection('user').snapshots();
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  String? _name;
-  String? _major;
-  int? _semester;
-  String? _status;
+class _SettingPageState extends State<SettingPage> {
+  Stream userStream = FirebaseFirestore.instance
+      .collection('user')
+      .doc(_firebaseAuth.currentUser!.uid)
+      .snapshots();
+
+  late String _name;
+  late String _status;
 
   Future<void> signOut() async {
     return _firebaseAuth.signOut();
@@ -62,25 +64,32 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 10.0,),
-                FutureBuilder(
-                    future: readData(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      return snapshot.connectionState != ConnectionState.done
-                          ? const CircularProgressIndicator()
-                          : Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    _name!,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(_status!),
-                                ],
+                const SizedBox(
+                  width: 10.0,
+                ),
+                StreamBuilder(
+                    stream: userStream,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else {
+                        var userDocument = snapshot.data;
+
+                        return Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                userDocument['name'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18.0),
                               ),
-                            );
+                              Text(userDocument['status']),
+                            ],
+                          ),
+                        );
+                      }
                     }),
                 IconButton(
                   icon: const Icon(Icons.edit),
@@ -178,8 +187,6 @@ class _SettingPageState extends State<SettingPage> {
 
     await userInfo.get().then((value) => {
           _name = value.data()!['name'],
-          _major = value.data()!['major'],
-          _semester = value.data()!['semester'],
           _status = value.data()!['status'],
         });
   }

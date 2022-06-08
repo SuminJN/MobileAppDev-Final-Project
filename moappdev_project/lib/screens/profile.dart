@@ -68,77 +68,57 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Divider(
                   thickness: 2,
                 ),
-                ListTile(
-                  leading: const Text(
-                    'Name',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  title: Container(
-                    margin: const EdgeInsets.only(left: 20.0, right: 40.0),
-                    child: TextField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: _name,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Name',
+                      hintText: _name,
                     ),
                   ),
                 ),
                 const Divider(
                   thickness: 2,
                 ),
-                ListTile(
-                  leading: const Text(
-                    'Major',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  title: Container(
-                    margin: const EdgeInsets.only(left: 20.0, right: 40.0),
-                    child: TextField(
-                      controller: _majorController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: _major,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: _majorController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Major',
+                      hintText: _major,
                     ),
                   ),
                 ),
                 const Divider(
                   thickness: 2,
                 ),
-                ListTile(
-                  leading: const Text(
-                    'Semester',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  title: Container(
-                    margin: const EdgeInsets.only(left: 20.0, right: 40.0),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      controller: _semesterController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: _semester.toString(),
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: _semesterController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Semester',
+                      hintText: _semester.toString(),
                     ),
                   ),
                 ),
                 const Divider(
                   thickness: 2,
                 ),
-                ListTile(
-                  leading: const Text(
-                    'Status',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  title: Container(
-                    margin: const EdgeInsets.only(left: 20.0, right: 40.0),
-                    child: TextField(
-                      controller: _statusController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: _status,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: _statusController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Status Message',
+                      hintText: _status,
                     ),
                   ),
                 ),

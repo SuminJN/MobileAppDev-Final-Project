@@ -24,10 +24,10 @@ class _TranslatorPageState extends State<TranslatorPage> {
   String? dropdownValue;
 
   static const Map<String, String> lang = {
-    "Hindi": "hi",
     "English": "en",
-    "Urdu": "ur",
     "Korean": "ko",
+    "Japanese": "ja",
+    "Chinese": "zh-cn",
   };
 
   void trans() {
@@ -44,7 +44,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
       appBar: AppBar(
         backgroundColor: appColor,
         centerTitle: true,
-        title: const Text("Text Recognition"),
+        title: const Text("Translator"),
       ),
       body: SingleChildScrollView(
         child: Container(

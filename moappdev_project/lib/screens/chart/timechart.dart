@@ -179,13 +179,13 @@ class _TimeChartState extends State<TimeChart> {
       lineBarsData: [
         LineChartBarData(
           spots: const [
-            FlSpot(0, 3),
-            FlSpot(1, 1),
-            FlSpot(2, 4),
-            FlSpot(3, 2),
-            FlSpot(4, 3),
-            FlSpot(5, 1),
-            FlSpot(6, 5),
+            FlSpot(0, 2),
+            FlSpot(1, 5),
+            FlSpot(2, 3),
+            FlSpot(3, 6),
+            FlSpot(4, 2),
+            FlSpot(5, 4),
+            FlSpot(6, 3),
           ],
           isCurved: true,
           gradient: LinearGradient(

@@ -52,16 +52,6 @@ class _SubjectPageState extends State<SubjectPage> {
                               padding: const EdgeInsets.all(15),
                               child: Row(
                                 children: [
-                                  //Color 설정
-                                  // Container(
-                                  //   width: 40,
-                                  //   height: 40,
-                                  //   decoration:
-                                  //       BoxDecoration(color: _subject.color, shape: BoxShape.circle),
-                                  // ),
-                                  // const SizedBox(
-                                  //   width: 15,
-                                  // ),
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -104,7 +94,6 @@ class _SubjectPageState extends State<SubjectPage> {
   void flutterDialog() {
     showDialog(
         context: context,
-        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
@@ -160,7 +149,7 @@ class _SubjectPageState extends State<SubjectPage> {
                       _creditController.clear();
                       Navigator.pop(context);
                     },
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -175,7 +164,7 @@ class _SubjectPageState extends State<SubjectPage> {
                       _creditController.clear();
                       Navigator.pop(context);
                     },
-                    child: Text('Check'),
+                    child: const Text('Check'),
                   ),
                 ],
               ),

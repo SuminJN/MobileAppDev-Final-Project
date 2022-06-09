@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       );
                     },
                     avatarSplashColor: Colors.purple,
-                    radius: 100,
+                    radius: 80,
                     isActivityIndicatorSmall: false,
                     avatarBorderData: AvatarBorderData(
                       borderColor: Colors.black54,

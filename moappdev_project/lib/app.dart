@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'home.dart';
-import 'signup.dart';
 import 'login.dart';
 
 class HanplApp extends StatelessWidget {
@@ -19,5 +16,3 @@ class HanplApp extends StatelessWidget {
     );
   }
 }
-
-

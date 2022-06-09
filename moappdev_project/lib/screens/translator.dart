@@ -112,9 +112,14 @@ class _TranslatorPageState extends State<TranslatorPage> {
                 children: const [
                   Text(
                     'Text: ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0,),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
                   ),
-                  SizedBox(height: 1,),
+                  SizedBox(
+                    height: 1,
+                  ),
                 ],
               ),
               const SizedBox(
@@ -129,8 +134,10 @@ class _TranslatorPageState extends State<TranslatorPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      const Text("Select Language here =>",
-                        style: TextStyle(fontSize: 17.0, color: Colors.deepPurple),
+                      const Text(
+                        "Select Language here =>",
+                        style:
+                            TextStyle(fontSize: 17.0, color: Colors.deepPurple),
                       ),
                       DropdownButton<String>(
                         value: dropdownValue,
@@ -174,7 +181,10 @@ class _TranslatorPageState extends State<TranslatorPage> {
                     children: const [
                       Text(
                         'Translated Text: ',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0,),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                        ),
                       ),
                     ],
                   ),
@@ -218,10 +228,6 @@ class _TranslatorPageState extends State<TranslatorPage> {
 
   void getRecognisedText(XFile image) async {
     final inputImage = InputImage.fromFilePath(image.path);
-    // final textDetector = GoogleMlKit.vision.textDetector();
-    // RecognizedText recognisedText = await textDetector.processImage(inputImage);
-    // await textDetector.close();
-
     final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
     final RecognizedText recognizedText =
         await textRecognizer.processImage(inputImage);

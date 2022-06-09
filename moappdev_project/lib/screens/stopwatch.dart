@@ -12,41 +12,9 @@ class _StopwatchPageState extends State<StopwatchPage> {
   Color appColor = const Color.fromRGBO(134, 201, 245, 1);
   final _isHours = true;
 
-  final StopWatchTimer _stopWatchTimer = StopWatchTimer(
-    mode: StopWatchMode.countUp,
-    onChange: (value) => print('onChange $value'),
-    onChangeRawSecond: (value) => print('onChangeRawSecond $value'),
-    onChangeRawMinute: (value) => print('onChangeRawMinute $value'),
-    onStop: () {
-      print('onStop');
-    },
-    onEnded: () {
-      print('onEnded');
-    },
-  );
+  final StopWatchTimer _stopWatchTimer = StopWatchTimer();
 
   final _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _stopWatchTimer.rawTime.listen((value) =>
-        print('rawTime $value ${StopWatchTimer.getDisplayTime(value)}'));
-    _stopWatchTimer.minuteTime.listen((value) => print('minuteTime $value'));
-    _stopWatchTimer.secondTime.listen((value) => print('secondTime $value'));
-    _stopWatchTimer.records.listen((value) => print('records $value'));
-    _stopWatchTimer.fetchStop.listen((value) => print('stop from stream'));
-    _stopWatchTimer.fetchEnded.listen((value) => print('ended from stream'));
-
-    /// Can be set preset time. This case is "00:01.23".
-    // _stopWatchTimer.setPresetTime(mSec: 1234);
-  }
-
-  @override
-  void dispose() async {
-    super.dispose();
-    await _stopWatchTimer.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +34,10 @@ class _StopwatchPageState extends State<StopwatchPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                const SizedBox(
+                  height: 80.0,
+                ),
+
                 /// Display stop watch time
                 StreamBuilder<int>(
                   stream: _stopWatchTimer.rawTime,
@@ -73,7 +45,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                   builder: (context, snap) {
                     final value = snap.data!;
                     final displayTime =
-                    StopWatchTimer.getDisplayTime(value, hours: _isHours);
+                        StopWatchTimer.getDisplayTime(value, hours: _isHours);
                     return Column(
                       children: <Widget>[
                         Padding(
@@ -90,55 +62,8 @@ class _StopwatchPageState extends State<StopwatchPage> {
                     );
                   },
                 ),
-
-                /// Lap time.
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: SizedBox(
-                    height: 100,
-                    child: StreamBuilder<List<StopWatchRecord>>(
-                      stream: _stopWatchTimer.records,
-                      initialData: _stopWatchTimer.records.value,
-                      builder: (context, snap) {
-                        final value = snap.data!;
-                        if (value.isEmpty) {
-                          return const SizedBox.shrink();
-                        }
-                        Future.delayed(const Duration(milliseconds: 100), () {
-                          _scrollController.animateTo(
-                              _scrollController.position.maxScrollExtent,
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.easeOut);
-                        });
-                        print('Listen records. $value');
-                        return ListView.builder(
-                          controller: _scrollController,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (BuildContext context, int index) {
-                            final data = value[index];
-                            return Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(
-                                    '${index + 1} ${data.displayTime}',
-                                    style: const TextStyle(
-                                        fontSize: 17,
-                                        fontFamily: 'Helvetica',
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                const Divider(
-                                  height: 1,
-                                )
-                              ],
-                            );
-                          },
-                          itemCount: value.length,
-                        );
-                      },
-                    ),
-                  ),
+                const SizedBox(
+                  height: 50.0,
                 ),
 
                 /// Button
@@ -215,6 +140,58 @@ class _StopwatchPageState extends State<StopwatchPage> {
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 150.0,
+                ),
+
+                /// Lap time.
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: SizedBox(
+                    height: 100,
+                    child: StreamBuilder<List<StopWatchRecord>>(
+                      stream: _stopWatchTimer.records,
+                      initialData: _stopWatchTimer.records.value,
+                      builder: (context, snap) {
+                        final value = snap.data!;
+                        if (value.isEmpty) {
+                          return const SizedBox.shrink();
+                        }
+                        Future.delayed(const Duration(milliseconds: 100), () {
+                          _scrollController.animateTo(
+                              _scrollController.position.maxScrollExtent,
+                              duration: const Duration(milliseconds: 200),
+                              curve: Curves.easeOut);
+                        });
+                        return ListView.builder(
+                          controller: _scrollController,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (BuildContext context, int index) {
+                            final data = value[index];
+                            return Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    '${index + 1} ${data.displayTime}',
+                                    style: const TextStyle(
+                                        fontSize: 17,
+                                        fontFamily: 'Helvetica',
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const Divider(
+                                  height: 1,
+                                )
+                              ],
+                            );
+                          },
+                          itemCount: value.length,
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -223,4 +200,3 @@ class _StopwatchPageState extends State<StopwatchPage> {
     );
   }
 }
-

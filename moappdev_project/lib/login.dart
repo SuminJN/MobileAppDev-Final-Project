@@ -131,8 +131,8 @@ class _LoginPageState extends State<LoginPage> {
           password: _passwordController.text,
         );
 
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const MainPage()));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const MainPage()));
       } on FirebaseAuthException catch (e) {
         String message = '';
 
@@ -151,7 +151,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       }
-
     }
   }
 }

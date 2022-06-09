@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:moappdve_project/login.dart';
-import 'authentication.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -12,7 +10,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -158,13 +155,13 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
-  Future<void> addUserInfo(String uid) async{
+  Future<void> addUserInfo(String uid) async {
     CollectionReference user = FirebaseFirestore.instance.collection('user');
     user.doc(uid).set({
-     'name': 'userName',
-     'major': 'Major',
-     'semester': 1,
-     'status': 'Please enter a status message',
+      'name': 'userName',
+      'major': 'Major',
+      'semester': 1,
+      'status': 'Please enter a status message',
       'photoUrl': 'https://picsum.photos/id/237/5000/5000',
     });
   }

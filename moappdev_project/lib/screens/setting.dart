@@ -34,7 +34,7 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Row(
               children: [
-                Container(
+                SizedBox(
                   width: 100,
                   height: 100,
                   child: UserProfileAvatar(
@@ -118,7 +118,7 @@ class _SettingPageState extends State<SettingPage> {
               ),
               title: Text(
                 'Nofitications',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text('Message, group & call tones'),
             ),
@@ -132,7 +132,7 @@ class _SettingPageState extends State<SettingPage> {
               ),
               title: Text(
                 'Help',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text('Help cenre, contact us, privacy policy'),
             ),

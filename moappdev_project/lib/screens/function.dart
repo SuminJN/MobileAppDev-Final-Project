@@ -10,12 +10,14 @@ class FunctionPage extends StatefulWidget {
 }
 
 class _FunctionPageState extends State<FunctionPage> {
+  Color appColor = const Color.fromRGBO(134, 201, 245, 1);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
               onTap: () {
@@ -23,48 +25,50 @@ class _FunctionPageState extends State<FunctionPage> {
                     builder: (context) => const StopwatchPage()));
               },
               child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent.shade200,
-                    border: Border.all(width: 2),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
+                height: 150.0,
+                width: 150.0,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.redAccent.shade200.withOpacity(0.6), Colors.redAccent.shade200],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
+                  border: Border.all(width: 3),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
                 padding: const EdgeInsets.all(30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Stopwatch',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ],
+                child: Image.asset(
+                  'assets/images/stopwatch.png',
                 ),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              width: 10,
+            ),
             InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const TranslatorPage()));
               },
               child: Container(
+                height: 150.0,
+                width: 150.0,
                 decoration: BoxDecoration(
-                  color: Colors.orangeAccent.shade200,
-                  border: Border.all(width: 2),
+                  gradient: LinearGradient(
+                    colors: [Colors.orangeAccent.shade200.withOpacity(0.6), Colors.orangeAccent.shade200],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  border: Border.all(width: 3),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(20),
                   ),
                 ),
                 padding: const EdgeInsets.all(30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Translator',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ],
+                child: Image.asset(
+                  'assets/images/translator.png',
                 ),
               ),
             ),

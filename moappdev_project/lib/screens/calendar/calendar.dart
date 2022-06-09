@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +70,6 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                           document.data()['subject'],
                         )
                       ];
-                      // print(document.id);
                     }
                   }
                 }
@@ -153,6 +150,24 @@ class _CalendarPageExampleState extends State<CalendarPage> {
                                 ? event.isAchieved = true
                                 : event.isAchieved = false;
                           });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: const Duration(milliseconds: 700),
+                              content: Text(
+                                event.isAchieved == false
+                                    ? 'Cancelled.'
+                                    : 'Accomplished!!!',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                              backgroundColor: event.isAchieved == false
+                                  ? Colors.redAccent.shade100
+                                  : Colors.lightBlue.shade300,
+                            ),
+                          );
                         },
                         title: Text(
                           event.subject + ' - ' + event.title,

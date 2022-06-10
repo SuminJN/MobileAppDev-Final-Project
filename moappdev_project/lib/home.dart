@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> {
     const Text('Setting')
   ];
   final List<Widget> _pages = [
-    CalendarPage(),
+    const CalendarPage(),
     const FunctionPage(),
     const SubjectPage(),
     const SettingPage()
